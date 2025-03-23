@@ -1,0 +1,51 @@
+services:
+  expensetracker.postgres:
+    image: postgres
+    container_name: expense_tracker_database
+    restart: always
+    environment:
+      POSTGRES_USER: guest
+      POSTGRES_PASSWORD: guest
+      POSTGRES_DB: expense_tracker_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - expense_tracker_data:/var/lib/postgresql/data
+    networks:
+      - expense_tracker
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U guest -d expense_tracker_db"]
+      interval: 5s
+      retries: 5
+      start_period: 10s
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: guest@test.com
+      PGADMIN_DEFAULT_PASSWORD: guest
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+    depends_on:
+      - expensetracker.postgres
+    volumes:
+      - expense_tracker_pgadmin_data:/var/lib/pgadmin
+    networks:
+      - expense_tracker
+
+  expensetracker.api:
+    image: ${DOCKER_REGISTRY-}expensetrackerapi
+    build:
+      context: .
+      dockerfile: ExpenseTracker.API/Dockerfile
+
+volumes:
+  expense_tracker_data:
+  expense_tracker_pgadmin_data:
+  
+networks:
+  expense_tracker:
+    driver: bridge
