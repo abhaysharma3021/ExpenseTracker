@@ -1,7 +1,7 @@
 # ExpenseTracker
 
 ## Overview
-This is an Expense Tracker API, made using ASP.NET Core 9. It allows users to track their expenses efficiently with various features like categorization and budget management.
+This is an Expense Tracker API for Roadmap.sh [challenge](https://roadmap.sh/projects/expense-tracker-api), made using ASP.NET Core 9. It allows users to track their expenses efficiently with various features like categorization and budget management.
 
 This project follows the Domain-Driven Design (DDD) pattern with a structured architecture that includes Repository and Services layers. Additionally, it implements the CQRS pattern using MediatR for handling commands and queries efficiently.
 This is an Expense Tracker API, made using ASP.NET Core 9. It allows users to track their expenses efficiently with various features like categorization, reporting, and budget management.
