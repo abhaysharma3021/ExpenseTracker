@@ -14,7 +14,7 @@ services:
     networks:
       - expense_tracker
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U guest -d expense_tracker_db"]
+      test: [ "CMD-SHELL", "pg_isready -U guest -d expense_tracker_db" ]
       interval: 5s
       retries: 5
       start_period: 10s
@@ -36,16 +36,11 @@ services:
     networks:
       - expense_tracker
 
-  expensetracker.api:
-    image: ${DOCKER_REGISTRY-}expensetrackerapi
-    build:
-      context: .
-      dockerfile: ExpenseTracker.API/Dockerfile
-
 volumes:
   expense_tracker_data:
   expense_tracker_pgadmin_data:
-  
+
+
 networks:
   expense_tracker:
     driver: bridge
